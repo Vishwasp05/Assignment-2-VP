@@ -12,19 +12,20 @@ struct CategoryCellView: View {
     let height: CGFloat
     let text: String
     let iconText: String
+    let isSelected: Bool
     var body: some View {
         ZStack(alignment: .leading){
             Group{
                 HStack{
                     ZStack(alignment: .trailing){
                         RoundedRectangle(cornerRadius: 60)
-                            .foregroundStyle(.black)
+                            .foregroundStyle(isSelected ? .black : .white)
                             .frame(width: (3 + width + 0.08 * sizeToFloat(calculateTextWidth(for: text)) + 5), height: height + 10)
                         
                         
                         Text(text)
                             .bold()
-                            .foregroundStyle(.white)
+                            .foregroundStyle(!isSelected ? .black : .white)
                             .padding(.trailing, 5)
                         
                     }
@@ -33,7 +34,7 @@ struct CategoryCellView: View {
                 
                 ZStack{
                     Circle()
-                        .foregroundStyle(.white)
+                        .foregroundStyle(isSelected ? .white : .gray)
                         .frame(width: width, height: height)
                         .padding(.leading, 3.75)
                     
@@ -58,5 +59,5 @@ struct CategoryCellView: View {
 }
 
 #Preview {
-    CategoryCellView(width: 100, height: 100, text: "dfaewfaew", iconText: "💀")
+    CategoryCellView(width: 100, height: 100, text: "dfaewfaew", iconText: "💀", isSelected: false)
 }

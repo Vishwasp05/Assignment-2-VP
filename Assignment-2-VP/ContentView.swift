@@ -24,10 +24,14 @@ struct ContentView: View {
     
     @State private var categoryTitle: String = "Nothing"
     @State private var categoryIconText: String = "💀"
+    @State private var selectedID: UUID? = nil
     var body: some View {
             GeometryReader { geo in
                 ZStack {
                     // Bg
+                    Color.gray
+                        .ignoresSafeArea()
+                    
                     Color.black.opacity(0.8)
                         .offset(CGSize(width: 0, height: -geo.size.height * 0.575))
                         .ignoresSafeArea()
@@ -79,8 +83,11 @@ struct ContentView: View {
                                         Button {
                                             categoryTitle = item.text
                                             categoryIconText = item.iconText
+                                            selectedID = item.id
+                                            
                                         } label: {
-                                            CategoryCellView(width: item.width, height: item.height, text: item.text, iconText: item.iconText)
+                                            CategoryCellView(width: item.width, height: item.height, text: item.text, iconText: item.iconText, isSelected: selectedID == item.id)
+                                            
                                         }
                                     }
                                 }
@@ -89,7 +96,7 @@ struct ContentView: View {
                             .padding(.bottom, 70)
                             
                             Text("\(categoryTitle) \(categoryIconText) selected")
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.black)
                                 .font(.largeTitle)
                                 .bold()
                                 .padding(.bottom, 50)
